@@ -8,11 +8,10 @@ public class Main {
 
         Scanner scn = new Scanner(System.in);
         String exp= scn.nextLine();
-        System.out.println(exp);
         char [] charsArr = exp.toCharArray();
         char ch=' ';
         boolean math=false;
-        int a=0, b=0, len = 1;
+        int a, b, len = 1;
         for(int i=0;i<exp.length();i++){    //Нахожу мат оператор
             switch (charsArr[i]){
                 case '-':
@@ -40,8 +39,6 @@ public class Main {
                 case "+":
                     numbs = exp.split("\\+");
             }
-            System.out.println(numbs[0]);
-            System.out.println(numbs[1]);
         }
         else {
             System.out.println("Не математическая функция");
@@ -52,23 +49,46 @@ public class Main {
             z++;
         }
         catch (NumberFormatException ex){
+            a = Converter.romeTOarab(numbs[0]);
         }
         try {
             b = Integer.parseInt(numbs[1]);
             z++;
         }
         catch (NumberFormatException ex){
+            b = Converter.romeTOarab(numbs[1]);
         }
+
+        int result;
         switch (z){
             case 2:
-                System.out.println(arab.Arab(a,b,ch));
+                result = calculator(a,b,ch);
+                System.out.println(result);
                 break;
             case 0:
-                System.out.println(rome.Rome(numbs[0],numbs[1],ch));
+                result = calculator(a,b,ch);
+                System.out.println(Converter.arabTOrome(result));
                 break;
             default:
                 System.out.println("Ошибка");
         }
-
+    }
+    public static int calculator(int a,int b, char oper){
+        int res=0;
+        switch (oper){
+            case '-':
+                res=a-b;
+                break;
+            case '+':
+                res=a+b;
+                break;
+            case '*':
+                res=a*b;
+                break;
+            case '/':
+                res=a/b;
+                break;
+        }
+        return res;
     }
 }
