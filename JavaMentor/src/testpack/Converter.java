@@ -5,9 +5,9 @@ public class Converter {
         int number=0;
         romen=romen.toUpperCase();
         int i=0;
+
         while (i< romen.length()){
-            char letter = romen.charAt(i);
-            switch (letter){
+            switch (romen.charAt(i)){
                 case 'I':
                     number+=1;
                     break;
@@ -27,7 +27,8 @@ public class Converter {
         }
         return number;
     }
-    static String arabTOrome(int numb){         //перевод с арабского на римский
+
+    static String arabTOrome(int numb){         //перевод арабского на римский
         String romenum = "";
 
         if(numb==100){
@@ -39,26 +40,26 @@ public class Converter {
         romenum+=func(numb,"X", "V", "I");
         return romenum;
     }
-    static String func(int num, String hi, String re, String lo){
+    static String func(int num, String bol, String sr, String mal){
         switch (num){
             case 9:
-                return lo + hi;
+                return mal + bol;
             case 8:
-                return re + lo + lo + lo;
+                return sr + mal + mal + mal;
             case 7:
-                return re + lo + lo;
+                return sr + mal + mal;
             case 6:
-                return re + lo;
+                return sr + mal;
             case 5:
-                return re;
+                return sr;
             case 4:
-                return lo + re;
+                return mal + sr;
             case 3:
-                return lo + lo + lo;
+                return mal + mal + mal;
             case 2:
-                return lo + lo;
+                return mal + mal;
             case 1:
-                return lo;
+                return mal;
             default:
                 return "";
         }
