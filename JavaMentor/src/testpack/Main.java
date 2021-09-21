@@ -11,23 +11,23 @@ public class Main {
         char [] charsArr = exp.toCharArray();
         char ch=' ';
         boolean math=false;
-        int a, b, len = 1;
-        for(int i=0;i<exp.length();i++){    //Нахожу мат оператор
+        int a=0, b=0, len = 1;
+        for(int i=0;i<exp.length();i++){
             switch (charsArr[i]){
                 case '-':
                 case '+':
                 case '*':
                 case '/':
                     ch =charsArr[i];
-                    math=true;              //проверка есть ли мат оператор
-                    len++;                  //кол-мат операторов, должно быть два операнда и один оператор
+                    math=true;
+                    len++;
                     break;
             }
         }
 
         String asd = String.valueOf(ch);
         String[] numbs = new String[len];
-        if(math&&len==2) {                  //разделяю на 2 строки
+        if(math&&len==2) {
             switch (asd){
                 case "-":
                 case "/":
@@ -45,33 +45,53 @@ public class Main {
         }
         int z=0;
         try {
-            a = Integer.parseInt(numbs[0]);     //определяю арабские или римские цифры
+            a = Integer.parseInt(numbs[0]);
             z++;
         }
         catch (NumberFormatException ex){
-            a = Converter.romeTOarab(numbs[0]);
+            if(exam(numbs[0])) a = Converter.romeTOarab(numbs[0]);
+            else z=10;
         }
         try {
             b = Integer.parseInt(numbs[1]);
             z++;
         }
         catch (NumberFormatException ex){
-            b = Converter.romeTOarab(numbs[1]);
+            if(exam(numbs[1])) b = Converter.romeTOarab(numbs[1]);
+            else z=10;
         }
 
         int result;
+
         switch (z){
             case 2:
                 result = calculator(a,b,ch);
                 System.out.println(result);
                 break;
             case 0:
+
                 result = calculator(a,b,ch);
                 System.out.println(Converter.arabTOrome(result));
                 break;
             default:
                 System.out.println("Ошибка");
         }
+    }
+    static boolean exam(String rome){
+        boolean numb=false;
+        int len=0;
+        rome=rome.toUpperCase();
+        for(int i = 0; i < rome.length();i++){
+            switch (rome.charAt(i)){
+                case 'I':
+                case 'V':
+                case 'X':
+                    len++;
+                    break;
+            }
+        }
+        if(len==rome.length())numb=true;
+        return numb;
     }
     public static int calculator(int a,int b, char oper){
         int res=0;
